@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">AndroidKit</string>
+    <!--网络请求-->
+    <string name="error_not_known">未知错误</string>
+    <string name="network_unavailable">网络不可用</string>
+    <string name="request_time_out">网络请求超时</string>
+    <string name="server_error">服务器发生错误</string>
+    <string name="host_not_exist">请求地址不存在</string>
+    <string name="request_forbidden">请求被服务器拒绝</string>
+    <string name="request_redirected">请求被重定向到其他页面</string>
+    <string name="data_parse_error">数据解析错误</string>
+    <string name="app_loading">玩命加载中…</string>
+    <string name="app_loading_more">更多加载中……</string>
+    <string name="app_loading_error">加载失败，刷新重试</string>
+    <string name="app_loading_empty">暂无内容…</string>
+    <!--检查更新-->
+    <string name="update_app_model_prepare">准备下载</string>
+    <string name="update_app_model_progress">正在下载 %1$d%2$s</string>
+    <string name="update_app_model_success">下载成功(点击安装)</string>
+    <string name="update_app_model_error">下载失败(点击浏览器下载)</string>
+    <string name="software_update">软件更新</string>
+    <string name="ask_to_update">检测到新版本，是否更新？</string>
+    <string name="update_check_failed">更新检测异常</string>
+    <string name="already_the_latest_version">已经是最新版本</string>
+    <string name="apk_start_download">开始下载…</string>
+    <!--通知栏-->
+    <string name="notification_setting">检测到您没有打开通知权限，是否去打开？</string>
+    <string name="notification_permission">通知栏权限</string>
+    <string name="permission_request_fail">权限被拒绝</string>
+    <string name="login_not_avi">登录失效</string>
+    <string name="ask_2_login">登录已失效，请重新登录</string>
+
+    <string name="choose_pic">从相册选择</string>
+    <string name="take_photo">拍照</string>
+    <string name="path_make_fail">路径创建失败</string>
+
+    <string name="not_yet">暂无</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+
+    <string name="qq_friend">QQ好友</string>
+    <string name="qq_zone">QQ空间</string>
+    <string name="wechat_friend">微信好友</string>
+    <string name="wx_time_line">微信朋友圈</string>
+    <string name="tab_home">首页</string>
+    <string name="double_click_to_exit">再按一次退出程序</string>
+    <string name="tab_message">消息</string>
+    <string name="tab_mine">我的</string>
+</resources>

@@ -1,0 +1,127 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'foboth'
+            keyPassword 'foboth_2018'
+            storeFile file('../keystore/foboth.jks')
+            storePassword 'foboth_2018'
+        }
+    }
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.chopperhl.androidkit"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0.0"
+        vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        beta {
+            signingConfig signingConfigs.config
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.config
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = "app_${defaultConfig.versionName}.apk"
+                outputFileName = fileName
+            }
+        }
+    }
+
+    //360加固
+    task signSafeApp(dependsOn: 'assembleRelease') {
+        doLast {
+            def currFile = new File(".")
+            def appFilePath = currFile.getCanonicalPath() +
+                    File.separator + "app" + File.separator + "build" + File.separator + "outputs" + File.separator + "apk" + File.separator + "release" + File.separator +
+                    "foboth_${defaultConfig.versionName}.apk"
+            if (!new File(appFilePath).exists()) {
+                throw new RuntimeException("apk not exist")
+            }
+
+            def cmdBase = "java -jar $jia_gu_root/jiagu.jar"
+            def cmdLogin = cmdBase + " -login $jia_gu_user $jia_gu_pass"
+            def cmdImportSign = cmdBase + ' -importsign ' +
+                    signingConfigs.config.storeFile.getCanonicalPath() + ' ' +
+                    signingConfigs.config.storePassword + ' ' +
+                    signingConfigs.config.keyAlias + ' ' +
+                    signingConfigs.config.keyPassword
+            def cmdConfig = cmdBase + ' -config -x86'
+            def cmdJiaGu = cmdBase + ' -jiagu ' + appFilePath + ' ' + jia_gu_apk_dir + ' -autosign'
+            executeCmd(cmdLogin)
+            executeCmd(cmdImportSign)
+            executeCmd(cmdConfig)
+            executeCmd(cmdJiaGu)
+            println "JiaGu Success"
+        }
+    }
+}
+
+def executeCmd(cmd) {
+    println cmd
+    def p = cmd.execute(null, new File("$jia_gu_root/java/bin"))
+    p.waitFor()
+    def code = p.exitValue()
+    if (code != 0) throw new RuntimeException("JiaGu Failed")
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    implementation files('libs/lite-orm-1.9.2.jar')
+    //noinspection GradleCompatible
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:support-vector-drawable:$support_version"
+    //noinspection GradleDependency,GradleCompatible
+    implementation "com.android.support:cardview-v7:$support_version"
+    implementation 'com.github.open-android:WheelPicker:v1.0.0'
+    implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    implementation 'com.jude:easyrecyclerview:4.4.0'
+    implementation 'com.jude:rollviewpager:1.4.6'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'id.zelory:compressor:2.1.0'
+    implementation 'com.just.agentweb:agentweb:4.0.2'
+    implementation 'com.zhihu.android:matisse:0.4.3'
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+    implementation 'com.alibaba:arouter-api:1.4.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}
+repositories {
+    mavenCentral()
+}

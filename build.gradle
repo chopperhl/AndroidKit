@@ -1,0 +1,30 @@
+buildscript {
+    ext.kotlin_version = '1.2.71'
+    ext.support_version = '27.1.1'
+    ext.jia_gu_root = '/home/chopperhl/JiaGu'
+    ext.jia_gu_apk_dir = '/home/chopperhl'
+    ext.jia_gu_user = 'chopperhl'
+    ext.jia_gu_pass = '871256hl'
+
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        //noinspection GradleDependency
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

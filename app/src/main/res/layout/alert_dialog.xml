@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="25dp"
+    android:background="@drawable/shape_dialog_bg"
+    android:orientation="vertical"
+    tools:ignore="SpUsage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="70dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textColor="#0099FF"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:padding="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_14"
+            tools:text="确定退出系统吗？" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#b6b6b6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/butCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_left_corner"
+            android:paddingBottom="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@string/cancel"
+            android:textColor="@color/selector_black_to_white"
+            android:textSize="@dimen/sp_15" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="#b6b6b6" />
+
+        <Button
+            android:id="@+id/butYes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_right_corner"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="@string/confirm"
+            android:textColor="@color/selector_black_to_white"
+            android:textSize="@dimen/sp_15" />
+    </LinearLayout>
+</LinearLayout>
