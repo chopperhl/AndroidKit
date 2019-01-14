@@ -28,9 +28,9 @@ public class MainActivity extends BaseActivity {
     TabLayout mTabLayout;
     @Autowired(name = KEY_PARAMS_1)
     String hello;
-    HomeFragment mFragment1;
-    HomeFragment mFragment2;
-    HomeFragment mFragment3;
+    private HomeFragment mFragment1;
+    private HomeFragment mFragment2;
+    private HomeFragment mFragment3;
 
     private long exitTime;
 
