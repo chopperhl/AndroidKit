@@ -8,9 +8,9 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chopperhl.androidkit.R;
 import com.chopperhl.androidkit.base.BaseActivity;
+import com.chopperhl.androidkit.base.Presenter;
 import com.chopperhl.androidkit.common.Routers;
 import com.chopperhl.androidkit.util.Util;
-
 
 
 /**
@@ -21,7 +21,8 @@ import com.chopperhl.androidkit.util.Util;
  * Copyright ©2015-20018 chopperhl All Rights Reserved.
  */
 @Route(path = Routers.LOGIN)
-public class LoginActivity extends BaseActivity {
+@Presenter(LoginPresenter.class)
+public class LoginActivity extends BaseActivity<LoginPresenter> {
 
     @BindView(R.id.btn)
     Button mBtnLogin;
@@ -49,6 +50,5 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void doBusiness() {
-
     }
 }

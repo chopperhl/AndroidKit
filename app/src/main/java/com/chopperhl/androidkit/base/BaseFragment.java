@@ -14,6 +14,8 @@ import butterknife.Unbinder;
 import com.chopperhl.androidkit.util.Util;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
+import java.lang.reflect.Constructor;
+
 
 /**
  * Description: 基础fragment
@@ -25,10 +27,18 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 public abstract class BaseFragment<P extends BasePresenter> extends RxFragment implements BaseView {
     private Unbinder unbinder;
     private View view;
-    P mPresenter;
+    protected P mPresenter;
 
-    protected P initPresenter() {
-        return null;
+    private void initPresenter() {
+        try {
+            Presenter p = getClass().getAnnotation(Presenter.class);
+            if (p == null) return;
+            Constructor constructor = p.value().getConstructor();
+            mPresenter = (P) constructor.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (mPresenter != null) mPresenter.mView = this;
     }
 
     @Nullable
@@ -36,8 +46,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends RxFragment i
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(bindLayout(), container, false);
         unbinder = ButterKnife.bind(this, view);
-        mPresenter = initPresenter();
-        if (mPresenter != null) mPresenter.mView = this;
+        initPresenter();
         Bundle bundle = getActivity().getIntent().getExtras();
         if (bundle == null) bundle = new Bundle();
         initParams(bundle);

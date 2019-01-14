@@ -31,6 +31,8 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import io.reactivex.functions.Action;
 
+import java.lang.reflect.Constructor;
+
 
 /**
  * Description: activity 基础类
@@ -45,13 +47,21 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     protected Toolbar toolbar;
 
     private Unbinder unbinder;
-    P mPresenter;
+    protected P mPresenter;
     private LoadingDialog mLoadingDialog;
     private TextView mTitleTextView;
     private RxPermissions mRxPermissions;
 
-    protected P initPresenter() {
-        return null;
+    private void initPresenter() {
+        try {
+            Presenter p = getClass().getAnnotation(Presenter.class);
+            if (p == null) return;
+            Constructor constructor = p.value().getConstructor();
+            mPresenter = (P) constructor.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (mPresenter != null) mPresenter.mView = this;
     }
 
     @Override
@@ -59,8 +69,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         super.onCreate(savedInstanceState);
         ARouter.getInstance().inject(this);
         ActivityManager.INSTANCE.add(this);
-        mPresenter = initPresenter();
-        if (mPresenter != null) mPresenter.mView = this;
+        initPresenter();
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) bundle = new Bundle();
         initParams(bundle);

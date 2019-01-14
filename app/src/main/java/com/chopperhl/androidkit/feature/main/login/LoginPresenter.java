@@ -11,4 +11,5 @@ import com.chopperhl.androidkit.base.BasePresenter;
  * Copyright ©2015-20018 chopperhl All Rights Reserved.
  */
 public class LoginPresenter extends BasePresenter {
+
 }
