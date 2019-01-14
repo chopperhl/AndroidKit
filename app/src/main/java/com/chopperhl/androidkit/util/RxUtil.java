@@ -1,7 +1,6 @@
 package com.chopperhl.androidkit.util;
 
 
-
 import com.chopperhl.androidkit.R;
 import com.chopperhl.androidkit.base.BaseView;
 import com.chopperhl.androidkit.common.ActivityManager;
@@ -94,7 +93,7 @@ public class RxUtil {
      *
      * @return
      */
-    public static <T> ObservableTransformer<BaseResponse<T>, BaseResponse<T>> applyValidate() {
+    public static <T extends BaseResponse> ObservableTransformer<T, T> applyValidate() {
         return observable -> observable.map(response -> {
             if (response == null) throw new NullPointerException();
             if (!response.isOk()) {
