@@ -12,6 +12,7 @@ import com.chopperhl.androidkit.common.ActivityManager;
 import com.chopperhl.androidkit.common.Routers;
 import com.chopperhl.androidkit.feature.main.home.HomeFragment;
 import com.chopperhl.androidkit.util.NotificationUtil;
+import com.chopperhl.androidkit.util.RxBus;
 import com.chopperhl.androidkit.util.Util;
 import com.chopperhl.androidkit.util.update.UpdateHelper;
 
@@ -115,9 +116,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void doBusiness() {
-        Util.handler.postDelayed(() -> {
-            showToast(hello);
-        }, 2000);
 
     }
 }

@@ -21,7 +21,7 @@ public class RxBus {
         this.mBus = PublishSubject.create().toSerialized();
     }
 
-    public static RxBus getInstance() {
+    public static RxBus get() {
         if (instance == null) {
             synchronized (RxBus.class) {
                 if (instance == null) {
@@ -44,7 +44,4 @@ public class RxBus {
         return mBus;
     }
 
-    public boolean hasObservers() {
-        return mBus.hasObservers();
-    }
 }
