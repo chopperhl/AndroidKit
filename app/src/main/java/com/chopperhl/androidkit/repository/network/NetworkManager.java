@@ -40,9 +40,9 @@ public class NetworkManager {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         if (okHttpClient == null) {
             OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                    .addInterceptor(loggingInterceptor)
                     .addInterceptor(new CommonInterceptor())
                     .addInterceptor(new CacheControlInterceptor())
+                    .addInterceptor(loggingInterceptor)
                     .connectTimeout(8, TimeUnit.SECONDS)
                     .readTimeout(8, TimeUnit.SECONDS)
                     .cache(getCache());
