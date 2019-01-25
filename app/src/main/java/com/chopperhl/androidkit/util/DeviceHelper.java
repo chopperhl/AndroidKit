@@ -318,18 +318,14 @@ public class DeviceHelper {
         if (!TextUtils.isEmpty(DEVICE_ID)) return DEVICE_ID;
         String id = SharedPrefUtil.INSTANCE.getSharedStr(Constants.KEY_DEVICE_ID, "");
         if (!TextUtils.isEmpty(id)) return DEVICE_ID = id;
-        Context context = BaseApplication.getApplication();
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-            List<String> list = Lists.newArrayList(getIMEI(0), getIMEI(1));
-            Collections.sort(list, String::compareTo);
-            DEVICE_ID = Util.replaceEmpty(list.get(0), "")
-                    + Util.replaceEmpty(list.get(1), "");
-            if (TextUtils.isEmpty(DEVICE_ID)) DEVICE_ID = UUID.randomUUID().toString();
-            SharedPrefUtil.INSTANCE.getDefaultSharedEditor()
-                    .putString(Constants.KEY_DEVICE_ID, DEVICE_ID)
-                    .apply();
-            return DEVICE_ID;
-        }
-        return "";
+        List<String> list = Lists.newArrayList(getIMEI(0), getIMEI(1));
+        Collections.sort(list, String::compareTo);
+        DEVICE_ID = Util.replaceEmpty(list.get(0), "")
+                + Util.replaceEmpty(list.get(1), "");
+        if (TextUtils.isEmpty(DEVICE_ID)) DEVICE_ID = UUID.randomUUID().toString();
+        SharedPrefUtil.INSTANCE.getDefaultSharedEditor()
+                .putString(Constants.KEY_DEVICE_ID, DEVICE_ID)
+                .apply();
+        return DEVICE_ID;
     }
 }
