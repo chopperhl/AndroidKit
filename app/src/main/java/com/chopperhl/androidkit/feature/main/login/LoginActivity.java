@@ -22,7 +22,7 @@ import com.chopperhl.androidkit.util.Util;
  */
 @Route(path = Routers.LOGIN)
 @Presenter(LoginPresenter.class)
-public class LoginActivity extends BaseActivity<LoginPresenter> {
+public class LoginActivity extends BaseActivity<LoginPresenter> implements ILoginView {
 
     @BindView(R.id.btn)
     Button mBtnLogin;
