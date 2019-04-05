@@ -7,12 +7,14 @@ buildscript {
     ext.jia_gu_pass = '871256hl'
 
     repositories {
+        maven { url "https://jitpack.io" }
         jcenter()
         google()
     }
     dependencies {
         //noinspection GradleDependency
         classpath 'com.android.tools.build:gradle:3.1.4'
+        //noinspection GradleDependency
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
     }
 }
